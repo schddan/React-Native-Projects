@@ -1,0 +1,7 @@
+1 - Baixar o app Expo no celular para rodar
+2 - Rodar npx create-expo-app@latest
+ 2.1 - Caso dê algum problema de pasta não encontrada, roda npm install -g npm para instalar o npm globalmente
+3 - npx expo start (ver 4.1)
+4 - Para rodar no celular sem depender de estar na mesma rede, roda npm i @expo/ngrok
+ 4.1 - npx expo start --tunnel a partir de agora
+ 4.2 - Com o expo já rodando, aperta r no terminal caso ele desconecte
