@@ -4,83 +4,70 @@ import { LinearGradient } from 'expo-linear-gradient'
 
 const PrimeiraPagina = function () {
   const [number1, setNumber1] = React.useState('');
-  const [number2, setNumber2] = React.useState('');
   const [operacao, setOperacao] = React.useState('');
-  const [resultado, setResultado] = React.useState('');
-  const [displayNumber, setDisplayNumber] = React.useState(''); 
+  const [displayNumber, setDisplayNumber] = React.useState('');
+  const [calculado, setCalculado] = React.useState(false)
 
   //Operações
   const somar = function () {
-    if (number1 != '' && number2 != '')
-      setResultado(parseFloat(number1) + parseFloat(number2))
-    else
-      setResultado('Digite os valores, por favor')
+    if (number1 != '')
+      setDisplayNumber(parseFloat(number1) + parseFloat(displayNumber))
+
   }
   const subtrair = function () {
-    if (number1 != '' && number2 != '')
-      setResultado(number1 - number2)
-    else
-      setResultado('Digite os valores, por favor')
+    if (number1 != '')
+      setDisplayNumber(number1 - displayNumber)
+
   }
   const dividir = function () {
+    if (parseFloat(displayNumber) === 0)
+      setDisplayNumber('ERROR - DIV 0')
+    else if (number1 != '')
+      setDisplayNumber(number1 / displayNumber)
 
-    if (parseFloat(number2) === 0)
-      setResultado('Não é possível fazer divisão por zero')
-    else if (number1 != '' && number2 != '')
-      setResultado(number1 / number2)
-    else
-      setResultado('Digite os valores, por favor')
   }
   const multiplicar = function () {
-    if (number1 != '' && number2 != '')
+    if (number1 != '')
+      setDisplayNumber(number1 * displayNumber)
 
-      setResultado(number1 * number2)
-    else
-      setResultado('Digite os valores, por favor')
   }
 
   const calcular = function () {
-    switch (operacao) {
-      case 'soma':
-        somar()
-        break
-      case 'subtracao':
-        subtrair()
-        break
-      case 'multiplicacao':
-        multiplicar()
-        break
-      case 'divisao':
-        dividir()
-        break
+    if (!calculado) {
+      switch (operacao) {
+        case 'soma':
+          somar()
+          break
+        case 'subtracao':
+          subtrair()
+          break
+        case 'multiplicacao':
+          multiplicar()
+          break
+        case 'divisao':
+          dividir()
+          break
+      }
     }
-    exibirValores()
+    setCalculado(true)
   }
 
   const concatenarDigito = function (digito) {
-    if (operacao == '') {
-      if(digito != '.'){
-        setNumber1(number1 + digito)
-      } else if(!number1.includes('.')){
-        setNumber1(number1 +digito)
-      }
-    } else {
-      if(digito != '.'){
-        setNumber2(number2 + digito)
-      } else if(!number2.includes('.')){
-        setNumber2(number2 +digito)
-      }
+    if(calculado){
+      setCalculado(false)
     }
+    if (digito != '.') {
+      setDisplayNumber(displayNumber + digito)
+    } else if (!displayNumber.includes('.')) {
+      setDisplayNumber(displayNumber + digito)
+    }
+
   }
 
-  const exibirValores = function(){
-    if(resultado != ''){
-      setDisplayNumber(resultado)
-    } else if(number2 != ''){
-      setDisplayNumber(number2)
-    } else {
-      setDisplayNumber(number1)
-    }
+  const limpar = function () {
+    setDisplayNumber('')
+    setNumber1('')
+    setCalculado(false)
   }
 
   return (
@@ -89,30 +76,28 @@ const PrimeiraPagina = function () {
       <View style={styles.display}>
         <Text>{displayNumber}</Text>
       </View>
-      <View style={styles.inputGroup}>
-        <TextInput style={styles.input} keyboardType='numeric' placeholder='Valor 1' value={number1} onChangeText={setNumber1} />
-        <TextInput style={styles.input} keyboardType='numeric' placeholder='Valor 2' value={number2} onChangeText={setNumber2} />
-      </View>
       <View style={styles.buttonGroup}>
         <Pressable style={styles.button} onPress={() => concatenarDigito('9')}><Text>9</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('8')}><Text>8</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('7')}><Text>7</Text></Pressable>
-        <Pressable style={styles.button} onPress={() => setOperacao('soma')}><Text>+</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => { setOperacao('soma'), setNumber1(displayNumber), setDisplayNumber('') }}><Text>+</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('6')}><Text>6</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('5')}><Text>5</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('4')}><Text>4</Text></Pressable>
-        <Pressable style={styles.button} onPress={() => setOperacao('subtracao')}><Text>-</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => { setOperacao('subtracao'), setNumber1(displayNumber), setDisplayNumber('') }}><Text>-</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('3')}><Text>3</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('2')}><Text>2</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('1')}><Text>1</Text></Pressable>
-        <Pressable style={styles.button} onPress={() => setOperacao('multiplicacao')}><Text>*</Text></Pressable>
-        <Pressable style={styles.button} onPress={calcular}><Text>=</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => { setOperacao('multiplicacao'), setNumber1(displayNumber), setDisplayNumber('') }}><Text>*</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => calcular()}><Text>=</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('0')}><Text>0</Text></Pressable>
         <Pressable style={styles.button} onPress={() => concatenarDigito('.')}><Text>.</Text></Pressable>
-        <Pressable style={styles.button} onPress={() => setOperacao('divisao')}><Text>/</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => { setOperacao('divisao'), setNumber1(displayNumber), setDisplayNumber('') }}><Text>/</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => limpar()}><Text>C</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => setDisplayNumber('')}><Text>CE</Text></Pressable>
+
       </View>
 
-      <Text>{resultado}</Text>
     </View>
   )
 };
@@ -126,7 +111,7 @@ const styles = StyleSheet.create({
     height: '100%',
     gap: 20,
   },
-  display:{
+  display: {
     backgroundColor: '#b5b5b5',
     margin: 10,
     height: 50,
@@ -134,7 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: '60%',
     display: 'flex',
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'flex-end',
     padding: 10,
   },
@@ -151,7 +136,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
     width: '60%',
     flexWrap: 'wrap',
