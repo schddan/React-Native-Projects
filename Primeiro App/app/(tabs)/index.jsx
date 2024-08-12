@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, View, StyleSheet, BackHandler, Button, TextInput } from 'react-native'
-
+import { Text, View, StyleSheet, BackHandler, Pressable, TextInput } from 'react-native'
+import { LinearGradient} from 'expo-linear-gradient'
 
 const PrimeiraPagina = function () {
   const [number1, setNumber1] = React.useState('');
@@ -42,10 +42,10 @@ const PrimeiraPagina = function () {
         <TextInput style={styles.input}keyboardType='numeric' placeholder='Valor 2' value={number2} onChangeText={setNumber2} />
       </View>
       <View style={styles.buttonGroup}>
-        <Button  onPress={somar} title='+' />
-        <Button onPress={subtrair} title='-' />
-        <Button onPress={dividir} title='/' />
-        <Button onPress={multiplicar} title='*' />
+        <Pressable onPress={somar} title='+' />
+        <Pressable onPress={subtrair} title='-' />
+        <Pressable onPress={dividir} title='/' />
+        <Pressable onPress={multiplicar} title='*' />
       </View>
       <Text>{resultado}</Text>
     </View>
