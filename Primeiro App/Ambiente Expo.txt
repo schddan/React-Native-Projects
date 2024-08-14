@@ -5,3 +5,5 @@
 4 - Para rodar no celular sem depender de estar na mesma rede, roda npm i @expo/ngrok
  4.1 - npx expo start --tunnel a partir de agora
  4.2 - Com o expo já rodando, aperta r no terminal caso ele desconecte
+5 - Uma forma interessante de organizar a pasta app é adicionar uma pasta com um nome e o arquivo jsx chamado index.jsx contendo o código em si
+ 5.1 - Enquanto as rotas não forem organizadas, o expo dá o 'sitemap', que permite selecionar qual index queremos usar
