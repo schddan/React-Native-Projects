@@ -28,8 +28,8 @@ const toDo = function () {
     const [_tarefas, setTarefas] = useState(TAREFAS)
 
     const concluirTarefa = function({item}){
-        TAREFAS[TAREFAS.indexOf(item)].feito = true
-        setTarefas([...TAREFAS])
+        TAREFAS[TAREFAS.indexOf(item)].feito = !TAREFAS[TAREFAS.indexOf(item)].feito
+        setTarefas([...TAREFAS]) //Necessário pois sem isso o React ignora a alteração, já que o endereço de memória seria o mesmo. Isso faz uma cópia em outro endereço, basicamente
     }
     
     const Item = ({ item }) => (
