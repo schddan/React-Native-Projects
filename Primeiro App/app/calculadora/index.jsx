@@ -1,12 +1,16 @@
+import { useFonts } from 'expo-font';
 import React from 'react'
 import { Text, View, StyleSheet, BackHandler, Pressable, TextInput } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
 
 const PrimeiraPagina = function () {
   const [number1, setNumber1] = React.useState('');
   const [operacao, setOperacao] = React.useState('');
   const [displayNumber, setDisplayNumber] = React.useState('');
   const [calculado, setCalculado] = React.useState(false)
+
+  const [loaded, error] = useFonts({
+    'SevenSeg': require('./../../assets/fonts/SevenSeg.ttf'),
+  });
 
   //Operações
   const somar = function () {
@@ -74,7 +78,7 @@ const PrimeiraPagina = function () {
     <View style={styles.container}>
       <Text style={styles.title}>Calculadora</Text>
       <View style={styles.display}>
-        <Text>{displayNumber}</Text>
+        <Text style={styles.text}>{displayNumber}</Text>
       </View>
       <View style={styles.buttonGroup}>
         <Pressable style={styles.button} onPress={() => concatenarDigito('9')}><Text>9</Text></Pressable>
@@ -122,6 +126,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     padding: 10,
+  },
+  text:{
+    fontFamily: 'SevenSeg',
+    fontSize: 30
   },
   inputGroup: {
     display: 'flex',

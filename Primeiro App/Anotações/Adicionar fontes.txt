@@ -1,0 +1,16 @@
+https://docs.expo.dev/versions/latest/sdk/font/
+
+1 - $npx expo install expo-font
+2 - Insere, no arquivo app.json ou app.config.json em "plugins":
+    [
+      "expo-font",
+      {
+        "fonts": ["path/to/file.ttf"]
+      }
+    ]
+3 - No arquivo onde deseja usar a fonte, importe: import { useFonts } from 'expo-font';
+4 - No componente que usará a fonte, insira:
+    const [loaded, error] = useFonts({
+      'nome-da-fonte': require('./assets/fonts/nome-da-fonte.ttf'), //Pode ser necessário mexer um pouco mais nesse caminho
+    });
+5 - E claro, garanta que a fonte está disponível, seja no assets/fonts ou outro diretório
