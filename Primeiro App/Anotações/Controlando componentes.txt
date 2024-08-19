@@ -1,0 +1,17 @@
+Hooks: 
+ -Funções próprias do React que permitem um controle dinâmico dos componentes
+ -Gerenciam estados, ciclo de vida e permitem lógicas reutilizáveis entre componentes
+
+ -Hooks padrão React-native:
+  -useState: 
+   >controla estado de variáveis, para informações que mudam no componente, e toda vez que essa variável mudar, o componente é novamente renderizado. Com variáveis comuns, isso não acontece
+   >const [nomeDaVariavel, setNomeDaVariavel] = useState(estadoInicial)
+  -useEffect: 
+   >executa efeitos (chamadas de API, operações de assinatura ...)
+   >faz o fetch da API, define o que será feito após o fetch e ainda permite definir dependências, que são variáveis que sempre que forem atualizadas farão o useEffect rodar de novo.
+  -useContext: 
+   >acessa o contexto compartilhado entre componentes, permitindo, por exemplo, compartilhar variáveis
+  -useReducer, useCallback, useMemo, useRef, useImperativeHandle, useLayoutEffect, useDebugValue...
+
+Props:
+ -Passam valores de componente pai para filho
