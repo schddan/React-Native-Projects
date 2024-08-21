@@ -1,0 +1,3 @@
+Retorno a um commit:
+    -https://medium.com/tableless/tenho-que-voltar-para-uma-vers%C3%A3o-antiga-e-agora-36d806bb12cf
+    -Caso não tenha uma tag, coloca direto o hash, como em:  git checkout -b retomandoCalculadora de1355cd0066ab14c421265dab11ae0b43b168c1
