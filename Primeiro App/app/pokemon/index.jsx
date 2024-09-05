@@ -9,14 +9,13 @@ const styles = StyleSheet.create({
 
 export default Pokemon = () => {
     const [pokemon, setPokemon] = useState('')
+    const [listaPokemons, setListaPokemons] = useState([])
 
-    const listaPokemons = [
-        { nome: 'Charizard', id: 1 },
-        { nome: 'Blastoise', id: 2 },
-        { nome: 'Venossaur', id: 3 }
-    ]
-    useEffect(()=>{
-        console.log("Dentro")
+    useEffect(() => {
+        fetch("https://pokeapi.co/api/v2/pokemon")
+            .then(resposta => resposta.json())
+            .then(dados => setListaPokemons(dados.results))
+            .catch(console.log("aconteceu um erro"))
     }, [pokemon])
 
     return (
@@ -24,7 +23,7 @@ export default Pokemon = () => {
             <Text>Selecione</Text>
             <Picker selectedValue={pokemon} onValueChange={(item) => setPokemon(item)}>
                 {listaPokemons.map((item, index) => (
-                    <Picker.Item key={index} label={item.nome} value={item.nome} />
+                    <Picker.Item key={index} label={item.name} value={item.name} />
                 ))}
             </Picker>
             {pokemon ? <Text>Você selecionou {pokemon}</Text> : ''}
