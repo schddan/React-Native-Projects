@@ -3,7 +3,13 @@ import { View, Text, StyleSheet } from "react-native";
 import { Picker } from '@react-native-picker/picker'; // Foi necessário instalar com npm install @react-native-picker/picker --save
 
 const styles = StyleSheet.create({
-    // Adicione estilos aqui se necessário
+    container:{
+        display:"flex",
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+    },
 });
 
 const Pokemon = () => {
@@ -29,9 +35,9 @@ const Pokemon = () => {
     }, [tipo]);
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Selecione o tipo</Text>
-            <Picker selectedValue={tipo} onValueChange={(item) => setTipo(item)}>
+            <Picker style={styles.picker} selectedValue={tipo} onValueChange={(item) => setTipo(item)}>
                 {listaTipos.map((item) => (
                     <Picker.Item key={item.name} label={item.name} value={item.name} />
                 ))}
@@ -40,7 +46,7 @@ const Pokemon = () => {
             {tipo && (
                 <View>
                     <Text>Selecione o Pokemon</Text>
-                    <Picker selectedValue={pokemon} onValueChange={(item) => setPokemon(item)}>
+                    <Picker style={styles.picker} selectedValue={pokemon} onValueChange={(item) => setPokemon(item)}>
                         {listaPokemons.map((item) => (
                             <Picker.Item key={item.pokemon.name} label={item.pokemon.name} value={item.pokemon.name} />
                         ))}
