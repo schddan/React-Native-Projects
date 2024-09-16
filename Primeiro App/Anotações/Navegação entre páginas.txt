@@ -1,0 +1,6 @@
+https://docs.expo.dev/router/navigating-pages/
+
+Usando React Navigation
+    -npm install @react-navigation/native
+    -npx expo install react-native-screens react-native-safe-area-context
+

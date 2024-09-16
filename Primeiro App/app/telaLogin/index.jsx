@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Text, TextInput, View, StyleSheet, Image, Pressable } from "react-native";
 import InputPlace from "./inputPlace/InputPlace";
 
+
 export default Login = () => {
 
     const [name, setName] = React.useState('');
@@ -42,7 +43,8 @@ export default Login = () => {
                 <InputPlace value={password} onChangeTextHandler={setPassword} icon={"https://cdn-icons-png.flaticon.com/512/696/696975.png"} label={"Senha"} />
             </View>
 
-            <Pressable style={styles.button} onPress={fetchData}><Text style={{color: '#ffffff'}}>Sign Up</Text></Pressable>
+            <Pressable style={styles.button} onPress={fetchData}><Text style={{ color: '#ffffff' }}>Sign Up</Text></Pressable>
+
         </View>
     )
 }
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold'
     },
-    button:{
+    button: {
         backgroundColor: '#333333',
         width: 250,
         height: 40,
