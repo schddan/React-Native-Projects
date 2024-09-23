@@ -1,0 +1,8 @@
+-Importantes para evitar problemas na árvore de componentes ao passar prop para filho entre vários componentes
+
+-Use context:
+    -Cria um estado global separado que pode ser usado por todos os componentes
+    Passos:
+        -Criar contexto
+        -Fornecer contexto
+        -Usar contexto
