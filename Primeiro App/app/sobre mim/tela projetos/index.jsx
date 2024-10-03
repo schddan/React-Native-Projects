@@ -12,6 +12,8 @@ const PROJETOS = [
     {id: 7, caminho: "/toDo", nome: "Lista de Tarefas", imagem: "https://grupos.moodle.ufsc.br/pluginfile.php/997967/mod_book/chapter/2616/tarefa.png", data: "02/08/2024"},
     {id: 8, caminho: "/iFome", nome: "iFome", imagem: "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/f2/90/95/f29095f8-1fea-edd1-6df3-bb79a2f5675e/AppIcon-0-0-1x_U007epad-0-10-0-85-220.png/1200x630wa.png", data: "23/09/2024"},
     {id: 9, caminho: "/acessoGaleria", nome: "Acessando Galeria", imagem: "https://cdn-icons-png.flaticon.com/512/1590/1590898.png", data: "23/09/2024"},
+    {id: 10, caminho: "/acessoCamera", nome: "Acessando Câmera", imagem: "https://cdn-icons-png.flaticon.com/512/5904/5904483.png", data: "03/10/2024"},
+
 ]
 const styles = StyleSheet.create({
     container: {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Image, View, StyleSheet } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker'; //npm install expo-image-picker
 
 export default function ImagePickerExample() {
   const [image, setImage] = useState('');
