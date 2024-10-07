@@ -1,6 +1,8 @@
 import { useState, useRef } from "react"
 import { View, StyleSheet, Text, Image, Button } from "react-native"
 import { CameraView, useCameraPermissions } from "expo-camera" //npm install expo-camera
+import * as MediaLibrary from "expo-media-library"//npm install expo-media-library
+import * as linking from "expo-linking"
 
 export default function CameraApp() {
     const [permissao, pedirPermisao] = useCameraPermissions()
@@ -8,6 +10,14 @@ export default function CameraApp() {
     const cameraRef = useRef(null)
     const [ladoCamera, setLadoCamera] = useState('back')
 
+    const qrCodeHandle = (data) => {
+        let value = data.data
+        if(linking.canOpenURL(value)){
+            console.log("sim")
+        } else {
+            console.log("Não")
+        }
+    }
     const tirarFoto = async () => {
         const foto_base64 = await cameraRef.current?.takePictureAsync({
             quality: 0.05,
@@ -19,6 +29,11 @@ export default function CameraApp() {
 
     const trocarCamera = () => {
         setLadoCamera(ladoCamera == 'back' ? 'front' : 'back')
+    }
+
+    const salvarFoto = () => {
+        MediaLibrary.saveToLibraryAsync(foto.uri)
+        setFoto(null)
     }
     if (!permissao) {
         return (
@@ -38,13 +53,14 @@ export default function CameraApp() {
 
     return (
         <View style={styles.container}>
-            {foto?
+            {foto ?
                 <View style={styles.container}>
-                    <Image source={{uri: foto.uri}} style={styles.foto}></Image>
-                    <Button title="Limpar Foto" onPress={() => {setFoto(null)}}/>
+                    <Image source={{ uri: foto.uri }} style={styles.foto}></Image>
+                    <Button title="Limpar Foto" onPress={() => { setFoto(null) }} />
+                    <Button title="Salvar Foto" onPress={salvarFoto} />
                 </View>
                 :
-                <CameraView facing={ladoCamera} style={styles.camera} ref={cameraRef}>
+                <CameraView facing={ladoCamera} style={styles.camera} ref={cameraRef} onBarcodeScanned={(data) => { qrCodeHandle(data) }} barcodeScannerSettings={{ barcodeTypes: ["qr"] }}>
                     <Button title="Tirar foto" onPress={tirarFoto} />
                     <Button title="Trocar Câmera" onPress={trocarCamera} />
                 </CameraView>}
@@ -65,8 +81,7 @@ const styles = StyleSheet.create({
     camera: {
         flex: 1
     },
-    foto:{
-        width: "100%",
-        height: "100%"
+    foto: {
+        flex: 1
     }
 })
