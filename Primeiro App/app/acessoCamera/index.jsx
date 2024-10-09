@@ -2,7 +2,7 @@ import { useState, useRef } from "react"
 import { View, StyleSheet, Text, Image, Button, Pressable, ImageBackground } from "react-native"
 import { CameraView, useCameraPermissions } from "expo-camera" //npm install expo-camera
 import * as MediaLibrary from "expo-media-library"//npm install expo-media-library
-import * as linking from "expo-linking"
+import * as Linking from "expo-linking"
 
 export default function CameraApp() {
     const [permissao, pedirPermisao] = useCameraPermissions()
@@ -12,11 +12,10 @@ export default function CameraApp() {
 
     const qrCodeHandle = (data) => {
         let value = data.data
-        if (linking.canOpenURL(value)) {
+        /* if (Linking.canOpenURL(value)) {
             console.log("sim")
-        } else {
-            console.log("Não")
-        }
+        } */
+        Linking.openURL(value).catch(() => {console.log("Não foi possível abrir")})
     }
     const tirarFoto = async () => {
         const foto_base64 = await cameraRef.current?.takePictureAsync({
