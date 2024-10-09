@@ -1,5 +1,5 @@
 import { useState, useRef } from "react"
-import { View, StyleSheet, Text, Image, Button } from "react-native"
+import { View, StyleSheet, Text, Image, Button, Pressable, ImageBackground } from "react-native"
 import { CameraView, useCameraPermissions } from "expo-camera" //npm install expo-camera
 import * as MediaLibrary from "expo-media-library"//npm install expo-media-library
 import * as linking from "expo-linking"
@@ -12,7 +12,7 @@ export default function CameraApp() {
 
     const qrCodeHandle = (data) => {
         let value = data.data
-        if(linking.canOpenURL(value)){
+        if (linking.canOpenURL(value)) {
             console.log("sim")
         } else {
             console.log("Não")
@@ -54,15 +54,27 @@ export default function CameraApp() {
     return (
         <View style={styles.container}>
             {foto ?
-                <View style={styles.container}>
-                    <Image source={{ uri: foto.uri }} style={styles.foto}></Image>
-                    <Button title="Limpar Foto" onPress={() => { setFoto(null) }} />
-                    <Button title="Salvar Foto" onPress={salvarFoto} />
-                </View>
+                <ImageBackground source={{ uri: foto.uri }} resizeMode="cover" style={styles.foto}>
+                    <View style={styles.postPicActions}>
+                        <Pressable onPress={() => { setFoto(null) }}>
+                            <Image style={{ height: 90, width: 90 }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2067/2067754.png' }}></Image>
+                        </Pressable>
+                        <Pressable onPress={salvarFoto}>
+                            <Image style={{ height: 50, width: 50 }} source={{ uri: 'https://static-00.iconduck.com/assets.00/save-icon-2048x2048-iovw4qr4.png' }}></Image>
+                        </Pressable>
+                    </View>
+                </ImageBackground>
+
                 :
                 <CameraView facing={ladoCamera} style={styles.camera} ref={cameraRef} onBarcodeScanned={(data) => { qrCodeHandle(data) }} barcodeScannerSettings={{ barcodeTypes: ["qr"] }}>
-                    <Button title="Tirar foto" onPress={tirarFoto} />
-                    <Button title="Trocar Câmera" onPress={trocarCamera} />
+                    <Pressable style={styles.shutterButton} onPress={tirarFoto}>
+                        <Image style={{ height: 120, width: 120 }} source={{ uri: 'https://static.thenounproject.com/png/120101-200.png' }}></Image>
+                    </Pressable>
+
+                    <Pressable style={styles.rotateButton} onPress={trocarCamera}>
+                        <Image style={{ height: 50, width: 50 }} source={{ uri: 'https://cdn-icons-png.flaticon.com/512/3594/3594866.png' }}></Image>
+                    </Pressable>
+
                 </CameraView>}
         </View>
 
@@ -82,6 +94,28 @@ const styles = StyleSheet.create({
         flex: 1
     },
     foto: {
-        flex: 1
+        flex: 1,
+    },
+    shutterButton: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        height: "95%",
+        justifyContent: 'center',
+        width: 120,
+        alignSelf: 'center',
+    },
+    rotateButton: {
+        top: -80,
+        left: 20,
+        width: 50,
+    },
+    postPicActions: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        left: -10,
+        height: "180%"
     }
 })
