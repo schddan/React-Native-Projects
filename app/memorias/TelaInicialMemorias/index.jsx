@@ -1,6 +1,6 @@
-import { View, StyleSheet, Text, FlatList } from "react-native"
-import LinkTelaProjetos from "./link tela projetos"
-
+import { View, StyleSheet, Text, FlatList, Pressable, Image } from "react-native"
+import Memoria from "./Memoria"
+import AsyncStorage from '@react-native-async-storage/async-storage'; //npx expo install @react-native-async-storage/async-storage
 
 const PROJETOS = [
     {id: 1, caminho: "/banco", nome: "Banco", imagem: "https://www.meioemensagem.com.br/wp-content/uploads/2018/03/Santander_NovaMarca_575.png", data: "02/08/2024"},
@@ -14,8 +14,8 @@ const PROJETOS = [
     {id: 9, caminho: "/acessoGaleria", nome: "Acessando Galeria", imagem: "https://cdn-icons-png.flaticon.com/512/1590/1590898.png", data: "23/09/2024"},
     {id: 10, caminho: "/acessoCamera", nome: "Acessando Câmera", imagem: "https://cdn-icons-png.flaticon.com/512/5904/5904483.png", data: "03/10/2024"},
     {id: 11, caminho: "/memorias", nome: "Memórias", imagem: "https://i.pinimg.com/originals/c7/a8/f9/c7a8f9130235a48fc5bae23b91d6e7c5.png", data: "10/10/2024"},
-
 ]
+
 const styles = StyleSheet.create({
     container: {
         height: "100%",
@@ -29,20 +29,23 @@ const styles = StyleSheet.create({
         maxHeight: "95%",
         width: "90%",
         gap: 10,
-
+        flex: 1,
 
     }
 })
 
-export default TelaProjetos = () => {
+export default TelaMemorias = ({navigation}) => {
     return (
         <View style={styles.container}>
             <FlatList
                 data={PROJETOS}
-                renderItem={({ item }) => <LinkTelaProjetos imagem={item.imagem} caminho={item.caminho} nome={item.nome} data={item.data} />}
+                renderItem={({ item }) => <Memoria imagem={item.imagem} caminho={item.caminho} nome={item.nome} data={item.data} />}
                 keyExtractor={item => item.id}
                 style={styles.lista}
             />
+            <Pressable onPress={() => navigation.navigate('Adicionar Memória')}>
+                <Image source={{uri: "https://cdn.icon-icons.com/icons2/1391/PNG/512/add_96266.png"}} style={{width: 60, height:60, margin: 10}}/> 
+            </Pressable>
 
         </View>
     )
