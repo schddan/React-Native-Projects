@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import TelaInicialMemorias from './TelaInicialMemorias';
 import TelaAdicionarMemoria from './TelaAdicionarMemoria';
+import telaInicial from '../sobre mim/tela inicial';
 
 const Stack = createNativeStackNavigator();
 

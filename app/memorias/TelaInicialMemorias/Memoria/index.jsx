@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 
 })
-export default Memoria = ({ caminho, nome, imagem, data, lugar, detalhes}) => {
+export default Memoria = ({ nome, imagem, data, lugar, detalhes}) => {
     return (
             <View style={styles.container}>
                 <Image
